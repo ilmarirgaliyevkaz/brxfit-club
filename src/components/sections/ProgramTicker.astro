@@ -1,0 +1,26 @@
+---
+// Signature element: a schedule-board ticker of every program name.
+// Communicates breadth ("17 directions") as motion, not a wall of cards.
+import { programs } from "../../data/programs";
+const names = programs.map((p) => p.name);
+// Duplicated once so the -50% translate loops seamlessly.
+const loop = [...names, ...names];
+---
+
+<div
+  class="overflow-hidden border-y border-line bg-surface py-3"
+  aria-hidden="true"
+>
+  <div class="flex w-max animate-marquee whitespace-nowrap">
+    {
+      loop.map((name) => (
+        <span class="flex items-center">
+          <span class="px-6 text-sm font-semibold uppercase tracking-[0.15em] text-muted">
+            {name}
+          </span>
+          <span class="text-gold">/</span>
+        </span>
+      ))
+    }
+  </div>
+</div>

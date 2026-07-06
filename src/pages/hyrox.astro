@@ -1,0 +1,297 @@
+---
+import AdLandingLayout from "../layouts/AdLandingLayout.astro";
+import WhatsAppButton from "../components/ui/WhatsAppButton.astro";
+import { HeartPulse, Dumbbell, Wind, BadgeCheck, GraduationCap } from "lucide-astro";
+
+const HYROX_MSG = "Здравствуйте! Хочу попробовать Hyrox-тренировку в Bronx.";
+
+// ── Hyrox media (compressed to web-ready 1080×1920 + posters) ──
+const OVERVIEW = {
+  src: "/video/hyrox/overview.mp4",
+  poster: "/video/hyrox/overview.jpg",
+};
+// TODO(content): подпись под отзывом (имя). Пусто = без подписи.
+const reviews = [
+  { name: "", src: "/video/hyrox/reviews/1.mp4", poster: "/video/hyrox/reviews/1.jpg" },
+];
+
+// Standard HYROX race sequence. Each station is preceded by a 1 km run.
+const stations = [
+  { n: "01", name: "SkiErg", detail: "Лыжный тренажёр", metric: "1000 м" },
+  { n: "02", name: "Толкание саней", detail: "Sled Push", metric: "50 м" },
+  { n: "03", name: "Тяга саней", detail: "Sled Pull", metric: "50 м" },
+  { n: "04", name: "Burpee-прыжки", detail: "Broad Jumps", metric: "80 м" },
+  { n: "05", name: "Гребля", detail: "Row", metric: "1000 м" },
+  { n: "06", name: "Фермерская переноска", detail: "Farmers Carry", metric: "200 м" },
+  { n: "07", name: "Выпады с мешком", detail: "Sandbag Lunges", metric: "100 м" },
+  { n: "08", name: "Wall Balls", detail: "Броски мяча в цель", metric: "100 раз" },
+];
+
+const benefits = [
+  { icon: Dumbbell, title: "Сила", text: "Сани, мешки, wall balls — работаешь с реальным весом." },
+  { icon: Wind, title: "Выносливость", text: "8 км бега вперемешку со станциями — дыхалка на пределе." },
+  { icon: HeartPulse, title: "Сердце", text: "Пульсовая работа, которая двигает результат в любом спорте." },
+];
+
+const jsonLd = {
+  "@context": "https://schema.org",
+  "@type": "ExercisePlan",
+  name: "Hyrox-тренировки — Bronx Fitness",
+  description:
+    "Тренировки в мировом формате Hyrox в Астане: 8 км бега и 8 функциональных станций на реальном оборудовании.",
+  url: "https://brxfit.club/hyrox",
+};
+---
+
+<AdLandingLayout
+  title="Hyrox в Астане — тренировки в мировом формате | Bronx"
+  description="Самый тяжёлый функционал Bronx: 8 км бега и 8 станций Hyrox на реальном оборудовании — сани, гребля, SkiErg. Первая тренировка бесплатно."
+  ogImage="/og-hyrox.png"
+  jsonLd={jsonLd}
+>
+  <!-- Hero -->
+  <section class="relative flex min-h-[85vh] items-center overflow-hidden">
+    <!-- Atmosphere clip (14s). Poster paints instantly for LCP; muted loop
+         adds ~3.6MB after paint. For strict-fast, drop <video> and keep poster. -->
+    <video
+      class="absolute inset-0 h-full w-full object-cover"
+      autoplay
+      muted
+      loop
+      playsinline
+      poster="/video/hyrox/hero.jpg"
+    >
+      <source src="/video/hyrox/hero.mp4" type="video/mp4" />
+    </video>
+    <div class="absolute inset-0 bg-gradient-to-t from-bg via-bg/70 to-bg/40"></div>
+
+    <div class="relative mx-auto w-full max-w-7xl px-6 py-24">
+      <p class="eyebrow">Официальный HYROX Training Club · Астана</p>
+      <h1 class="mt-4 text-6xl font-extrabold uppercase leading-[0.9] tracking-tight md:text-8xl lg:text-9xl">
+        Hyrox
+      </h1>
+      <p class="mt-6 max-w-xl text-base leading-relaxed text-muted md:text-lg">
+        Мировой формат фитнес-гонки и самый тяжёлый функционал Bronx:
+        настоящие станции, сертифицированные тренеры, официальная программа
+        HYROX.
+      </p>
+      <div class="mt-8">
+        <WhatsAppButton label="Попробовать — бесплатно" message={HYROX_MSG} />
+      </div>
+    </div>
+  </section>
+
+  <!-- Credential band (official HYROX status) -->
+  <section class="border-b border-line bg-bg">
+    <div class="mx-auto max-w-7xl px-6 py-8 md:py-10">
+      <div class="grid gap-6 sm:grid-cols-3">
+        {
+          [
+            { icon: BadgeCheck, title: "Официальный HYROX Training Club", text: "Аффилированный зал в Астане" },
+            { icon: GraduationCap, title: "Сертифицированные тренеры", text: "Нац. квалификация + HYROX Academy" },
+            { icon: Dumbbell, title: "Реальные станции", text: "Сани, гребля, SkiErg — не имитация" },
+          ].map((c) => (
+            <div class="flex items-start gap-3">
+              <c.icon class="h-6 w-6 shrink-0 text-gold" aria-hidden="true" />
+              <div>
+                <div class="font-semibold uppercase tracking-wide leading-tight">
+                  {c.title}
+                </div>
+                <p class="mt-1 text-sm text-muted">{c.text}</p>
+              </div>
+            </div>
+          ))
+        }
+      </div>
+      {/* TODO(content): официальный бейдж HYROX -> /public/hyrox-badge.svg;
+          ссылка на вашу карточку в HYROX Gym Finder */}
+    </div>
+  </section>
+
+  <!-- Stat triad -->
+  <section class="border-y border-line bg-surface">
+    <div class="mx-auto grid max-w-7xl grid-cols-3 divide-x divide-line">
+      {
+        [
+          { big: "8 км", small: "бега" },
+          { big: "8", small: "станций" },
+          { big: "любой", small: "уровень" },
+        ].map((s) => (
+          <div class="px-4 py-8 text-center md:py-12">
+            <div class="text-3xl font-extrabold uppercase tracking-tight text-gold md:text-5xl">
+              {s.big}
+            </div>
+            <div class="mt-1 text-xs uppercase tracking-[0.2em] text-muted md:text-sm">
+              {s.small}
+            </div>
+          </div>
+        ))
+      }
+    </div>
+  </section>
+
+  <!-- What is Hyrox -->
+  <section class="mx-auto max-w-3xl px-6 py-16 md:py-24">
+    <p class="eyebrow">Что это</p>
+    <h2 class="mt-3 text-3xl font-extrabold uppercase tracking-tight md:text-4xl">
+      Один формат на весь мир
+    </h2>
+    <p class="mt-5 text-base leading-relaxed text-muted md:text-lg">
+      Hyrox — фитнес-гонка одного мирового стандарта: 8 километров бега, между
+      ними 8 силовых станций. Одинаковая везде — в Амстердаме, Дубае и у нас в
+      зале. Ты тренируешься ровно по тому формату, по которому выступают атлеты
+      по всему миру.
+    </p>
+  </section>
+
+  <!-- Overview video (vertical) -->
+  <section class="border-t border-line bg-surface">
+    <div class="mx-auto max-w-5xl px-6 py-16 md:py-24">
+      <div class="grid items-center gap-10 md:grid-cols-2">
+        <div>
+          <p class="eyebrow">Обзор</p>
+          <h2 class="mt-3 text-3xl font-extrabold uppercase tracking-tight md:text-4xl">
+            Смотри, как это проходит
+          </h2>
+          <p class="mt-5 text-base leading-relaxed text-muted md:text-lg">
+            Атмосфера тренировки, станции и группа — за минуту.
+          </p>
+        </div>
+        <div class="mx-auto w-full max-w-[300px]">
+          <video
+            class="aspect-[9/16] w-full rounded border border-line bg-bg"
+            controls
+            preload="none"
+            poster={OVERVIEW.poster}
+          >
+            <source src={OVERVIEW.src} type="video/mp4" />
+          </video>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- The 8 stations (signature) -->
+  <section class="border-t border-line">
+    <div class="mx-auto max-w-4xl px-6 py-16 md:py-24">
+      <p class="eyebrow">Всё оборудование — у нас</p>
+      <h2 class="mt-3 text-3xl font-extrabold uppercase tracking-tight md:text-5xl">
+        Все 8 станций в зале
+      </h2>
+      <p class="mt-4 text-muted">
+        Перед каждой — 1 км бега. Порядок как на настоящей гонке.
+      </p>
+
+      <ol class="mt-10 divide-y divide-line border-y border-line">
+        {
+          stations.map((s) => (
+            <li class="flex items-center gap-4 py-4 md:gap-6 md:py-5">
+              <span class="w-10 shrink-0 font-mono text-lg font-bold text-gold md:text-xl">
+                {s.n}
+              </span>
+              <div class="flex-1">
+                <div class="font-semibold uppercase tracking-wide">{s.name}</div>
+                <div class="text-sm text-muted">{s.detail}</div>
+              </div>
+              <span class="shrink-0 font-semibold text-muted">{s.metric}</span>
+            </li>
+          ))
+        }
+      </ol>
+
+      <div class="mt-10">
+        <WhatsAppButton label="Пройти все 8 — бесплатно" message={HYROX_MSG} />
+      </div>
+    </div>
+  </section>
+
+  <!-- Benefits -->
+  <section class="mx-auto max-w-7xl px-6 py-16 md:py-24">
+    <p class="eyebrow">Что качаешь</p>
+    <h2 class="mt-3 text-3xl font-extrabold uppercase tracking-tight md:text-5xl">
+      Всё тело за одну тренировку
+    </h2>
+    <p class="mt-4 max-w-prose text-muted">
+      Hyrox достижим на любом уровне — от первой тренировки до подиума.
+    </p>
+    <div class="mt-10 grid gap-4 md:grid-cols-3">
+      {
+        benefits.map((b) => (
+          <div class="rounded border border-line bg-surface p-6">
+            <b.icon class="h-8 w-8 text-gold" aria-hidden="true" />
+            <h3 class="mt-4 text-xl font-semibold uppercase tracking-wide">
+              {b.title}
+            </h3>
+            <p class="mt-2 text-sm leading-relaxed text-muted">{b.text}</p>
+          </div>
+        ))
+      }
+    </div>
+  </section>
+
+  <!-- How it works -->
+  <section class="border-t border-line bg-surface">
+    <div class="mx-auto max-w-3xl px-6 py-16 md:py-24">
+      <p class="eyebrow">Как у нас</p>
+      <h2 class="mt-3 text-3xl font-extrabold uppercase tracking-tight md:text-4xl">
+        Сертифицированные тренеры
+      </h2>
+      <p class="mt-5 text-base leading-relaxed text-muted md:text-lg">
+        Занятия ведут сертифицированные HYROX-тренеры — с национальной
+        тренерской квалификацией и курсами HYROX Academy. Ставят технику на
+        каждой станции и ведут от первого круга до полного формата, по
+        официальной программе HYROX. Приходить можно с любой подготовкой.
+      </p>
+    </div>
+  </section>
+
+  <!-- Video reviews -->
+  <section class="border-t border-line">
+    <div class="mx-auto max-w-7xl px-6 py-16 md:py-24">
+      <p class="eyebrow">Отзывы</p>
+      <h2 class="mt-3 text-3xl font-extrabold uppercase tracking-tight md:text-5xl">
+        Что говорят те, кто прошёл
+      </h2>
+      <div class="mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+        {
+          reviews.map((r) => (
+            <figure class="overflow-hidden rounded border border-line bg-surface">
+              <video
+                class="aspect-[9/16] w-full object-cover"
+                controls
+                preload="none"
+                poster={r.poster}
+              >
+                <source src={r.src} type="video/mp4" />
+              </video>
+              {
+                r.name && (
+                  <figcaption class="px-4 py-3 text-sm font-semibold uppercase tracking-wide text-muted">
+                    {r.name}
+                  </figcaption>
+                )
+              }
+            </figure>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <!-- Final CTA -->
+  <section class="border-t border-line">
+    <div class="mx-auto max-w-3xl px-6 py-20 text-center md:py-28">
+      <h2 class="text-3xl font-extrabold uppercase leading-tight tracking-tight md:text-5xl">
+        Первая тренировка —<br /><span class="text-gold">бесплатно</span>
+      </h2>
+      <p class="mx-auto mt-4 max-w-prose text-muted">
+        Напиши в WhatsApp — поставим на ближайшую Hyrox-тренировку.
+      </p>
+      <div class="mt-8 flex justify-center">
+        <WhatsAppButton label="Написать в WhatsApp" message={HYROX_MSG} />
+      </div>
+    </div>
+  </section>
+
+  <WhatsAppButton slot="floating" variant="floating" message={HYROX_MSG} />
+</AdLandingLayout>

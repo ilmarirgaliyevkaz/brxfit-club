@@ -1,0 +1,76 @@
+---
+// Minimal layout for paid-traffic landing pages: full SEO/OG, self-hosted
+// fonts, NO site navigation (single conversion goal = WhatsApp).
+import "../styles/global.css";
+import "@fontsource/inter/400.css";
+import "@fontsource/inter/600.css";
+import "@fontsource/inter/800.css";
+
+interface Props {
+  title: string;
+  description: string;
+  /** Path to a 1200x630 OG image under /public. */
+  ogImage?: string;
+  /** JSON-LD structured data object. */
+  jsonLd?: Record<string, unknown>;
+}
+
+const {
+  title,
+  description,
+  ogImage = "/og-image.png", // TODO(content): add /public/og-image.png (1200x630)
+  jsonLd,
+} = Astro.props;
+
+const canonical = new URL(Astro.url.pathname, Astro.site).toString();
+const ogImageUrl = new URL(ogImage, Astro.site).toString();
+---
+
+<!doctype html>
+<html lang="ru" class="scroll-smooth">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <link rel="canonical" href={canonical} />
+
+    <title>{title}</title>
+    <meta name="description" content={description} />
+
+    <!-- Open Graph -->
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonical} />
+    <meta property="og:image" content={ogImageUrl} />
+    <meta property="og:locale" content="ru_RU" />
+
+    <!-- Twitter -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={ogImageUrl} />
+
+    {
+      jsonLd && (
+        <script
+          is:inline
+          type="application/ld+json"
+          set:html={JSON.stringify(jsonLd)}
+        />
+      )
+    }
+  </head>
+  <body>
+    <a
+      href="#main"
+      class="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-50 focus:rounded focus:bg-gold focus:px-4 focus:py-2 focus:text-bg"
+    >
+      К содержимому
+    </a>
+    <main id="main">
+      <slot />
+    </main>
+    <slot name="floating" />
+  </body>
+</html>

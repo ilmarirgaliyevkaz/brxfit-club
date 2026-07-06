@@ -1,0 +1,44 @@
+---
+import WhatsAppButton from "../ui/WhatsAppButton.astro";
+---
+
+<section class="relative flex min-h-[92vh] items-center overflow-hidden">
+  <!-- Video background -->
+  <!-- TODO(content): add hero video to /public/video/hero.mp4 (+ poster.jpg).
+       Keep it muted, looped, playsinline; poster prevents layout shift. -->
+  <video
+    class="absolute inset-0 h-full w-full object-cover"
+    autoplay
+    muted
+    loop
+    playsinline
+    poster="/video/hero-poster.jpg"
+  >
+    <source src="/video/hero.mp4" type="video/mp4" />
+  </video>
+  <!-- Legibility overlay -->
+  <div
+    class="absolute inset-0 bg-gradient-to-t from-bg via-bg/70 to-bg/40"
+  >
+  </div>
+
+  <div class="relative mx-auto w-full max-w-7xl px-6 py-24">
+    <p class="eyebrow">Фитнес-клуб в Астане</p>
+    <h1
+      class="mt-4 max-w-3xl text-4xl font-extrabold uppercase leading-[0.95] tracking-tight md:text-6xl lg:text-7xl"
+    >
+      Твой клуб,<br />а не просто зал
+    </h1>
+    <p class="mt-6 max-w-xl text-base leading-relaxed text-muted md:text-lg">
+      Больше 17 направлений — от бокса до растяжки — и комьюнити, ради
+      которого возвращаются.
+    </p>
+    <div class="mt-8 flex flex-col gap-3 sm:flex-row">
+      <WhatsAppButton
+        label="Записаться — бесплатно"
+        message="Здравствуйте! Хочу записаться на бесплатную тренировку в Bronx."
+      />
+      <a href="#programs" class="btn-ghost">Смотреть направления</a>
+    </div>
+  </div>
+</section>

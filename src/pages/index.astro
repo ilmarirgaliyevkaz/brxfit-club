@@ -1,0 +1,59 @@
+---
+import AdLandingLayout from "../layouts/AdLandingLayout.astro";
+import ClubHero from "../components/sections/ClubHero.astro";
+import ProgramTicker from "../components/sections/ProgramTicker.astro";
+import FlagshipPrograms from "../components/sections/FlagshipPrograms.astro";
+import AllPrograms from "../components/sections/AllPrograms.astro";
+import Community from "../components/sections/Community.astro";
+import Locations from "../components/sections/Locations.astro";
+import FinalCTA from "../components/sections/FinalCTA.astro";
+import WhatsAppButton from "../components/ui/WhatsAppButton.astro";
+
+const jsonLd = {
+  "@context": "https://schema.org",
+  "@type": "SportsActivityLocation",
+  name: "Bronx Fitness",
+  description:
+    "Фитнес-клуб в Астане: бокс, функциональные, силовые, растяжка и танцы — больше 17 направлений.",
+  url: "https://brxfit.club/",
+  telephone: "+77071309980",
+  areaServed: "Астана",
+  address: {
+    "@type": "PostalAddress",
+    streetAddress: "просп. Мангилик Ел, 55/3, павильон B2.4",
+    addressLocality: "Астана",
+    addressCountry: "KZ",
+  },
+  geo: {
+    "@type": "GeoCoordinates",
+    latitude: 51.088808,
+    longitude: 71.415362,
+  },
+  openingHours: "Mo-Su 07:00-23:00",
+  aggregateRating: {
+    "@type": "AggregateRating",
+    ratingValue: "4.7",
+    reviewCount: "314",
+  },
+  sameAs: [
+    "https://instagram.com/bronxfitness_expo",
+    "https://2gis.kz/astana/firm/70000001067367604",
+  ],
+};
+---
+
+<AdLandingLayout
+  title="Bronx Fitness — фитнес-клуб в Астане | 17+ направлений"
+  description="Бокс, функциональные, силовые, растяжка и танцы под одной крышей. Первая тренировка бесплатно — напишите в WhatsApp."
+  jsonLd={jsonLd}
+>
+  <ClubHero />
+  <ProgramTicker />
+  <FlagshipPrograms />
+  <AllPrograms />
+  <Community />
+  <Locations />
+  <FinalCTA />
+
+  <WhatsAppButton slot="floating" variant="floating" />
+</AdLandingLayout>

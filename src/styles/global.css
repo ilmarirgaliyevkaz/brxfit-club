@@ -1,0 +1,61 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ── Design tokens (single source of truth) ───────────────────────── */
+:root {
+  --color-bg: 10 10 10; /* #0A0A0A */
+  --color-surface: 20 20 20; /* #141414 */
+  --color-line: 38 38 38; /* hairline borders */
+  --color-fg: 245 245 244; /* off-white text */
+  --color-muted: 161 161 170; /* secondary text */
+  --color-gold: 255 215 0; /* #FFD700 accent — CTAs / emphasis only */
+  --radius: 0.75rem;
+}
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+    -webkit-text-size-adjust: 100%;
+  }
+  body {
+    @apply bg-bg text-fg font-sans antialiased;
+  }
+  /* Visible focus for keyboard users (a11y non-negotiable) */
+  :focus-visible {
+    @apply outline-none ring-2 ring-gold ring-offset-2 ring-offset-bg;
+  }
+  ::selection {
+    @apply bg-gold text-bg;
+  }
+}
+
+@layer components {
+  /* One reused CTA pattern — kept minimal per styling rules */
+  .btn-primary {
+    @apply inline-flex items-center justify-center gap-2 rounded bg-gold px-6 py-3
+           font-semibold uppercase tracking-wide text-bg transition
+           hover:brightness-95 active:brightness-90;
+  }
+  .btn-ghost {
+    @apply inline-flex items-center justify-center gap-2 rounded border border-line
+           px-6 py-3 font-semibold uppercase tracking-wide text-fg transition
+           hover:border-gold hover:text-gold;
+  }
+  /* Athletic eyebrow label used above section headings */
+  .eyebrow {
+    @apply inline-block text-xs font-semibold uppercase tracking-[0.2em] text-gold;
+  }
+}
+
+/* Respect user motion preference */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
+}

@@ -1,0 +1,59 @@
+---
+import { Star } from "lucide-astro";
+import { videoTestimonials, TWO_GIS } from "../../data/site";
+const hasVideos = videoTestimonials.length > 0;
+---
+
+<section id="community" class="border-t border-line">
+  <div class="mx-auto max-w-7xl px-6 py-16 md:py-24 lg:py-32">
+    <p class="eyebrow">Атмосфера</p>
+    <h2 class="mt-3 text-3xl font-extrabold uppercase tracking-tight md:text-5xl">
+      Люди, ради которых возвращаются
+    </h2>
+    <p class="mt-4 max-w-prose text-muted">
+      Тренеры, которые знают тебя по имени, и группы, где ждут именно тебя.
+    </p>
+
+    <!-- 2GIS trust badge (verified) -->
+    <a
+      href={TWO_GIS.reviewsUrl}
+      target="_blank"
+      rel="noopener"
+      class="mt-8 inline-flex items-center gap-3 rounded border border-line bg-surface px-5 py-3 transition hover:border-gold"
+    >
+      <Star class="h-5 w-5 fill-gold text-gold" aria-hidden="true" />
+      <span class="font-semibold">{TWO_GIS.rating.toFixed(1)}</span>
+      <span class="text-sm text-muted">
+        {TWO_GIS.reviews} отзывов на 2ГИС
+      </span>
+    </a>
+
+    <!-- Video reviews -->
+    <div class="mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+      {
+        hasVideos
+          ? videoTestimonials.map((t) => (
+              <figure class="overflow-hidden rounded border border-line bg-surface">
+                <video
+                  class="aspect-[9/16] w-full object-cover"
+                  controls
+                  preload="none"
+                  poster={t.poster}
+                >
+                  <source src={t.src} type="video/mp4" />
+                </video>
+                <figcaption class="px-4 py-3 text-sm font-semibold uppercase tracking-wide text-muted">
+                  {t.name}
+                </figcaption>
+              </figure>
+            ))
+          : /* TODO(content): video reviews go here once uploaded */
+            Array.from({ length: 3 }).map(() => (
+              <div class="flex aspect-[9/16] items-center justify-center rounded border border-dashed border-line bg-surface text-xs uppercase tracking-widest text-muted">
+                видео-отзыв
+              </div>
+            ))
+      }
+    </div>
+  </div>
+</section>

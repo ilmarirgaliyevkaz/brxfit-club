@@ -1,0 +1,54 @@
+---
+import { MapPin, Clock, Instagram } from "lucide-astro";
+import { locations, INSTAGRAM_URL } from "../../data/site";
+const loc = locations[0];
+---
+
+<section id="locations" class="border-t border-line bg-surface">
+  <div class="mx-auto max-w-7xl px-6 py-16 md:py-24">
+    <p class="eyebrow">Где нас найти</p>
+    <h2 class="mt-3 text-3xl font-extrabold uppercase tracking-tight md:text-5xl">
+      Локация в Астане
+    </h2>
+
+    <div class="mt-10 grid gap-6 md:grid-cols-[1.2fr_1fr]">
+      <div class="rounded border border-line bg-bg p-6 md:p-8">
+        <h3 class="text-xl font-semibold uppercase tracking-wide">{loc.name}</h3>
+        <p class="mt-4 flex items-start gap-3 text-muted">
+          <MapPin class="mt-0.5 h-5 w-5 shrink-0 text-gold" aria-hidden="true" />
+          {loc.address}
+        </p>
+        <p class="mt-3 flex items-start gap-3 text-muted">
+          <Clock class="mt-0.5 h-5 w-5 shrink-0 text-gold" aria-hidden="true" />
+          {loc.hours}
+        </p>
+        <div class="mt-6 flex flex-wrap gap-3">
+          <a href={loc.mapUrl} target="_blank" rel="noopener" class="btn-ghost">
+            Открыть на 2ГИС
+          </a>
+          <a
+            href={INSTAGRAM_URL}
+            target="_blank"
+            rel="noopener"
+            class="btn-ghost"
+          >
+            <Instagram class="h-5 w-5" aria-hidden="true" />
+            Instagram
+          </a>
+        </div>
+      </div>
+
+      <!-- Map embed -->
+      <!-- TODO(content): optional — swap for a real 2GIS/Google Maps iframe.
+           Kept as a static link card to protect LCP/CLS by default. -->
+      <a
+        href={loc.mapUrl}
+        target="_blank"
+        rel="noopener"
+        class="flex min-h-[12rem] items-center justify-center rounded border border-line bg-bg text-sm uppercase tracking-widest text-muted transition hover:border-gold hover:text-gold"
+      >
+        Посмотреть на карте →
+      </a>
+    </div>
+  </div>
+</section>

@@ -1,0 +1,33 @@
+---
+import { ArrowUpRight } from "lucide-astro";
+import type { Program } from "../../data/programs";
+
+interface Props {
+  program: Program;
+}
+const { program } = Astro.props;
+const Tag = program.href ? "a" : "div";
+---
+
+<Tag
+  {...program.href ? { href: program.href } : {}}
+  class:list={[
+    "group relative flex flex-col gap-1 rounded border border-line bg-surface p-4 transition",
+    program.href && "hover:border-gold",
+  ]}
+>
+  <div class="flex items-start justify-between gap-2">
+    <h4 class="font-semibold uppercase tracking-wide text-fg">
+      {program.name}
+    </h4>
+    {
+      program.href && (
+        <ArrowUpRight
+          class="h-4 w-4 shrink-0 text-muted transition group-hover:text-gold"
+          aria-hidden="true"
+        />
+      )
+    }
+  </div>
+  <p class="text-sm leading-relaxed text-muted">{program.blurb}</p>
+</Tag>

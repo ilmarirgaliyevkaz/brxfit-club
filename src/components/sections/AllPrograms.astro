@@ -1,0 +1,40 @@
+---
+import { programsByCategory } from "../../data/programs";
+import ProgramCard from "../ui/ProgramCard.astro";
+const groups = programsByCategory();
+const total = groups.reduce((n, g) => n + g.items.length, 0);
+---
+
+<section id="programs" class="border-t border-line bg-bg">
+  <div class="mx-auto max-w-7xl px-6 py-16 md:py-24 lg:py-32">
+    <p class="eyebrow">Всё под одной крышей</p>
+    <h2
+      class="mt-3 text-3xl font-extrabold uppercase tracking-tight md:text-5xl"
+    >
+      {total} направлений
+    </h2>
+    <p class="mt-4 max-w-prose text-muted">
+      Единоборства, функциональные, силовые, растяжка и танцы — выбирай
+      настроение, а не абонемент.
+    </p>
+
+    <div class="mt-12 space-y-12">
+      {
+        groups.map((group) => (
+          <div>
+            <h3 class="mb-4 flex items-center gap-3 text-sm font-semibold uppercase tracking-[0.15em] text-gold">
+              {group.category.title}
+              <span class="h-px flex-1 bg-line" />
+              <span class="text-muted">{group.items.length}</span>
+            </h3>
+            <div class="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
+              {group.items.map((program) => (
+                <ProgramCard program={program} />
+              ))}
+            </div>
+          </div>
+        ))
+      }
+    </div>
+  </div>
+</section>

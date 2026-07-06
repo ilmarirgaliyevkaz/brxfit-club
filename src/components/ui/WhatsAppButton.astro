@@ -1,0 +1,44 @@
+---
+import { MessageCircle } from "lucide-astro";
+import { whatsappHref, WHATSAPP_MESSAGE } from "../../data/site";
+
+interface Props {
+  label?: string;
+  message?: string;
+  variant?: "inline" | "floating";
+  class?: string;
+}
+
+const {
+  label = "Написать в WhatsApp",
+  message = WHATSAPP_MESSAGE,
+  variant = "inline",
+  class: className = "",
+} = Astro.props;
+
+const href = whatsappHref(message);
+---
+
+{
+  variant === "floating" ? (
+    <a
+      href={href}
+      target="_blank"
+      rel="noopener"
+      aria-label={label}
+      class="fixed bottom-5 right-5 z-40 flex h-14 w-14 items-center justify-center rounded-full bg-gold text-bg shadow-lg transition hover:scale-105 md:h-16 md:w-16"
+    >
+      <MessageCircle class="h-7 w-7" aria-hidden="true" />
+    </a>
+  ) : (
+    <a
+      href={href}
+      target="_blank"
+      rel="noopener"
+      class={`btn-primary ${className}`}
+    >
+      <MessageCircle class="h-5 w-5" aria-hidden="true" />
+      {label}
+    </a>
+  )
+}
