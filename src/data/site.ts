@@ -3,7 +3,7 @@
 
 export const WHATSAPP_NUMBER = "77071309980";
 export const WHATSAPP_MESSAGE =
-  "Здравствуйте! Хочу записаться на бесплатную тренировку в Bronx.";
+  "Здравствуйте! Хочу 3 пробных занятия за 2990 ₸ в Bronx.";
 
 export function whatsappHref(message: string = WHATSAPP_MESSAGE): string {
   return `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(message)}`;

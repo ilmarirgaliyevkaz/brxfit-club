@@ -3,7 +3,7 @@ import AdLandingLayout from "../layouts/AdLandingLayout.astro";
 import WhatsAppButton from "../components/ui/WhatsAppButton.astro";
 import { HeartPulse, Dumbbell, Wind, BadgeCheck, GraduationCap } from "lucide-astro";
 
-const HYROX_MSG = "Здравствуйте! Хочу попробовать Hyrox-тренировку в Bronx.";
+const HYROX_MSG = "Здравствуйте! Хочу попробовать Hyrox — 3 пробных занятия за 2990 ₸.";
 
 // ── Hyrox media (compressed to web-ready 1080×1920 + posters) ──
 const OVERVIEW = {
@@ -45,7 +45,7 @@ const jsonLd = {
 
 <AdLandingLayout
   title="Hyrox в Астане — тренировки в мировом формате | Bronx"
-  description="Самый тяжёлый функционал Bronx: 8 км бега и 8 станций Hyrox на реальном оборудовании — сани, гребля, SkiErg. Первая тренировка бесплатно."
+  description="Самый тяжёлый функционал Bronx: 8 км бега и 8 станций Hyrox на реальном оборудовании — сани, гребля, SkiErg. Первые 3 занятия — 2990 ₸."
   ogImage="/og-hyrox.png"
   jsonLd={jsonLd}
 >
@@ -76,7 +76,7 @@ const jsonLd = {
         HYROX.
       </p>
       <div class="mt-8">
-        <WhatsAppButton label="Попробовать — бесплатно" message={HYROX_MSG} />
+        <WhatsAppButton label="3 занятия за 2990 ₸" message={HYROX_MSG} />
       </div>
     </div>
   </section>
@@ -200,7 +200,7 @@ const jsonLd = {
       </ol>
 
       <div class="mt-10">
-        <WhatsAppButton label="Пройти все 8 — бесплатно" message={HYROX_MSG} />
+        <WhatsAppButton label="3 занятия за 2990 ₸" message={HYROX_MSG} />
       </div>
     </div>
   </section>
@@ -282,7 +282,7 @@ const jsonLd = {
   <section class="border-t border-line">
     <div class="mx-auto max-w-3xl px-6 py-20 text-center md:py-28">
       <h2 class="text-3xl font-extrabold uppercase leading-tight tracking-tight md:text-5xl">
-        Первая тренировка —<br /><span class="text-gold">бесплатно</span>
+        3 пробных занятия —<br /><span class="text-gold">2990 ₸</span>
       </h2>
       <p class="mx-auto mt-4 max-w-prose text-muted">
         Напиши в WhatsApp — поставим на ближайшую Hyrox-тренировку.
