@@ -5,6 +5,7 @@ import "../styles/global.css";
 import "@fontsource/inter/400.css";
 import "@fontsource/inter/600.css";
 import "@fontsource/inter/800.css";
+import { GA4_ID } from "../data/site";
 
 interface Props {
   title: string;
@@ -60,6 +61,21 @@ const ogImageUrl = new URL(ogImage, Astro.site).toString();
         />
       )
     }
+
+    {
+      GA4_ID && (
+        <>
+          <script
+            is:inline
+            async
+            src={`https://www.googletagmanager.com/gtag/js?id=${GA4_ID}`}
+          />
+          <script is:inline define:vars={{ GA4_ID }}>
+            {`window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config',GA4_ID);`}
+          </script>
+        </>
+      )
+    }
   </head>
   <body>
     <a
@@ -72,5 +88,34 @@ const ogImageUrl = new URL(ogImage, Astro.site).toString();
       <slot />
     </main>
     <slot name="floating" />
+
+    <!-- Ads: carry UTM source into WhatsApp text + fire lead conversion on click -->
+    <script is:inline>
+      document.addEventListener("DOMContentLoaded", function () {
+        var p = new URLSearchParams(location.search);
+        var src = p.get("utm_source");
+        var camp = p.get("utm_campaign");
+        var links = document.querySelectorAll('a[href*="wa.me"]');
+        links.forEach(function (a) {
+          if (src) {
+            try {
+              var u = new URL(a.href);
+              var t = u.searchParams.get("text") || "";
+              t += " · реклама: " + src + (camp ? "/" + camp : "");
+              u.searchParams.set("text", t);
+              a.href = u.toString();
+            } catch (e) {}
+          }
+          a.addEventListener("click", function () {
+            if (typeof gtag === "function") {
+              gtag("event", "generate_lead", {
+                method: "whatsapp",
+                page: location.pathname,
+              });
+            }
+          });
+        });
+      });
+    </script>
   </body>
 </html>
