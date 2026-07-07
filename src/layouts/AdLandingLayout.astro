@@ -70,9 +70,10 @@ const ogImageUrl = new URL(ogImage, Astro.site).toString();
             async
             src={`https://www.googletagmanager.com/gtag/js?id=${GA4_ID}`}
           />
-          <script is:inline define:vars={{ GA4_ID }}>
-            {`window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config',GA4_ID);`}
-          </script>
+          <script
+            is:inline
+            set:html={`window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','${GA4_ID}');`}
+          />
         </>
       )
     }
