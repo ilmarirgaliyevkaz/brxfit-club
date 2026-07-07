@@ -5,6 +5,15 @@ import { HeartPulse, Dumbbell, Wind, BadgeCheck, GraduationCap } from "lucide-as
 
 const HYROX_MSG = "Здравствуйте! Хочу попробовать Hyrox — 3 пробных занятия за 2990 ₸.";
 
+// Real HYROX host cities (2025/26) for the global-vibe marquee.
+const hyroxCities = [
+  "Амстердам", "Дубай", "Лондон", "Париж", "Берлин", "Мадрид", "Лиссабон",
+  "Стокгольм", "Вена", "Сингапур", "Сидней", "Сеул", "Токио", "Джакарта",
+  "Мумбаи", "Шанхай", "Нью-Йорк", "Чикаго", "Кейптаун", "Сан-Паулу", "Гонконг",
+];
+// Official live race finder — always current, no hardcoded dates.
+const CALENDAR_URL = "https://hyrox.com/find-my-race/";
+
 // ── Hyrox media (compressed to web-ready 1080×1920 + posters) ──
 const OVERVIEW = {
   src: "/video/hyrox/overview.mp4",
@@ -144,6 +153,30 @@ const jsonLd = {
     </p>
   </section>
 
+  <!-- Global cities marquee -->
+  <section class="bg-bg">
+    <p class="mx-auto max-w-7xl px-6 pt-14 text-center text-xs font-semibold uppercase tracking-[0.2em] text-gold">
+      Одна гонка — в десятках стран мира
+    </p>
+    <div
+      class="mt-5 overflow-hidden border-y border-line bg-surface py-3"
+      aria-hidden="true"
+    >
+      <div class="flex w-max animate-marquee whitespace-nowrap">
+        {
+          [...hyroxCities, ...hyroxCities].map((city) => (
+            <span class="flex items-center">
+              <span class="px-6 text-sm font-semibold uppercase tracking-[0.15em] text-muted">
+                {city}
+              </span>
+              <span class="text-gold">/</span>
+            </span>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
   <!-- Overview video (vertical) -->
   <section class="border-t border-line bg-surface">
     <div class="mx-auto max-w-5xl px-6 py-16 md:py-24">
@@ -242,6 +275,54 @@ const jsonLd = {
         каждой станции и ведут от первого круга до полного формата, по
         официальной программе HYROX. Приходить можно с любой подготовкой.
       </p>
+    </div>
+  </section>
+
+  <!-- Train here → compete worldwide -->
+  <section class="border-t border-line">
+    <div class="mx-auto max-w-7xl px-6 py-16 md:py-24">
+      <p class="eyebrow">Твой путь</p>
+      <h2 class="mt-3 text-3xl font-extrabold uppercase tracking-tight md:text-5xl">
+        Тренируйся здесь — выступай в мире
+      </h2>
+      <p class="mt-4 max-w-prose text-muted">
+        Формат Hyrox — один на весь мир. Готовься в Астане, а на старт выходи
+        там, где выберешь — от Дубая до Стокгольма.
+      </p>
+
+      <div class="mt-10 grid gap-4 md:grid-cols-3">
+        {
+          [
+            {
+              n: "01",
+              t: "Тренируйся в Bronx",
+              d: "Официальный HYROX-зал в Астане: реальные станции и сертифицированные тренеры.",
+            },
+            {
+              n: "02",
+              t: "Выбери гонку",
+              d: "Мировой календарь Hyrox — десятки стран, поиск по городу и дате.",
+            },
+            {
+              n: "03",
+              t: "Выходи на старт",
+              d: "От Дубая до Стокгольма — один формат, к которому ты уже готов.",
+            },
+          ].map((s) => (
+            <div class="rounded border border-line bg-surface p-6">
+              <div class="font-mono text-lg font-bold text-gold">{s.n}</div>
+              <h3 class="mt-3 font-semibold uppercase tracking-wide">{s.t}</h3>
+              <p class="mt-2 text-sm leading-relaxed text-muted">{s.d}</p>
+            </div>
+          ))
+        }
+      </div>
+
+      <div class="mt-8">
+        <a href={CALENDAR_URL} target="_blank" rel="noopener" class="btn-ghost">
+          Мировой календарь Hyrox →
+        </a>
+      </div>
     </div>
   </section>
 
