@@ -4,7 +4,7 @@
 // TODO(ads): создай GA4-свойство под brxfit.club и впиши сюда его ID (G-XXXXXXXXXX).
 // Пусто = аналитика не грузится. После вставки: отметь событие generate_lead
 // ключевым в GA4 и импортируй как конверсию в Google Ads.
-export const GA4_ID = "";
+export const GA4_ID = "G-VVJ3Q40M39";
 
 export const WHATSAPP_NUMBER = "77071309980";
 export const WHATSAPP_MESSAGE =
