@@ -1,0 +1,302 @@
+---
+import AdLandingLayout from "../layouts/AdLandingLayout.astro";
+import WhatsAppButton from "../components/ui/WhatsAppButton.astro";
+import { Activity, ShieldCheck, Zap, Wind, MapPin, Instagram } from "lucide-astro";
+import { locations, TWO_GIS, INSTAGRAM_URL } from "../data/site";
+
+const FIGHT_MSG =
+  "Заявка с сайта brxfit.club (Fight). Здравствуйте! Хочу 3 пробных занятия за 2990 ₸ по боксу в Bronx (взрослые).";
+
+const club = locations[0];
+
+const marquee = [
+  "с любого уровня", "школа бокса", "защита",
+  "работа на мешках", "спарринги по готовности",
+];
+
+const benefits = [
+  { icon: Activity, title: "Школа бокса", text: "Стойка, перемещения, удары, защита. Джеб, хук, апперкот — связки на лапах и мешке." },
+  { icon: ShieldCheck, title: "Защита и контроль", text: "Уклоны, нырки, отклоны, блоки. Уверенность, которая остаётся с тобой вне зала." },
+  { icon: Zap, title: "Форма и выносливость", text: "Жёсткое кардио и сила. Бокс приводит в форму быстрее монотонного зала." },
+  { icon: Wind, title: "Снятие стресса", text: "Мешок забирает то, что накопилось за день. Выходишь — голова чистая." },
+];
+
+const groups = [
+  { title: "Новички", text: "С нуля. Стойка, челнок, прямые удары — с самой базы." },
+  { title: "Любители", text: "Связки-двойки, защита, работа на лапах и в парах." },
+  { title: "Спарринг", text: "Готов проверить себя — спарринги под контролем тренера." },
+];
+
+const approach = [
+  "Начинаем со стойки, техники и работы на лапах и мешке — спарринги подключаем только по готовности.",
+  "Тренер подбирает партнёров по уровню — без «проверок на прочность».",
+  "Защитная экипировка и контроль нагрузки на каждой тренировке.",
+];
+
+const steps = [
+  { n: "01", title: "Напишите в WhatsApp", text: "Одно сообщение — меньше минуты." },
+  { n: "02", title: "Мы ответим", text: "Подберём уровень и удобное время." },
+  { n: "03", title: "Пробное занятие", text: "Приходите, пробуете тренировку. Решение — за вами." },
+];
+
+const faq = [
+  { q: "С какого возраста взрослые группы?", a: "С 18 лет. Для подростков — направление Bronx Teens (13–17 лет)." },
+  { q: "Можно с нуля?", a: "Да. Большинство приходит без опыта — тренер ставит базовую технику с нуля." },
+  { q: "Спарринги обязательны?", a: "Нет. К спаррингам подключаем только по готовности и по желанию." },
+  { q: "Что взять на первое занятие?", a: "Удобную спортивную форму и сменную обувь. По экипировке подскажем при записи." },
+  { q: "Сколько стоит?", a: "Первые 3 занятия — 2990 ₸. Дальше подберём формат при записи." },
+];
+
+const jsonLd = {
+  "@context": "https://schema.org",
+  "@type": "Service",
+  serviceType: "Бокс для взрослых",
+  provider: {
+    "@type": "SportsActivityLocation",
+    name: "Bronx Fitness",
+    areaServed: "Астана, KZ",
+  },
+  audience: { "@type": "PeopleAudience", suggestedMinAge: 18 },
+  areaServed: "Астана",
+  url: "https://brxfit.club/fight",
+};
+---
+
+<AdLandingLayout
+  title="Бокс для взрослых в Астане — Bronx Fight | 3 пробных за 2990 ₸"
+  description="Классический бокс для взрослых в Bronx: школа бокса, защита, работа на лапах и мешке, спарринги по готовности. Берём с любого уровня. Первые 3 занятия — 2990 ₸."
+  ogImage="/og-fight.png"
+  jsonLd={jsonLd}
+>
+  <!-- Hero -->
+  <section class="relative flex min-h-[80vh] items-center overflow-hidden bg-bg">
+    <div class="relative mx-auto w-full max-w-7xl px-6 py-24">
+      <p class="eyebrow">Бокс для взрослых · Астана</p>
+      <h1 class="mt-4 max-w-4xl text-5xl font-extrabold uppercase leading-[0.95] tracking-tight md:text-7xl">
+        Бокс, который ставит <span class="text-gold">удар</span> и характер
+      </h1>
+      <p class="mt-6 max-w-xl text-base leading-relaxed text-muted md:text-lg">
+        Классическая школа бокса: ударная техника, защита, работа на лапах и
+        мешке, спарринги по готовности. Берём с любого уровня — приходи на
+        пробное.
+      </p>
+      <div class="mt-8">
+        <WhatsAppButton label="3 занятия за 2990 ₸" message={FIGHT_MSG} />
+      </div>
+    </div>
+  </section>
+
+  <!-- Marquee -->
+  <section class="bg-bg">
+    <div class="overflow-hidden border-y border-line bg-surface py-3" aria-hidden="true">
+      <div class="flex w-max animate-marquee whitespace-nowrap">
+        {
+          [...marquee, ...marquee].map((t) => (
+            <span class="flex items-center">
+              <span class="px-6 text-sm font-semibold uppercase tracking-[0.15em] text-muted">
+                {t}
+              </span>
+              <span class="text-gold">/</span>
+            </span>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <!-- Problem -->
+  <section class="mx-auto max-w-3xl px-6 py-16 md:py-24">
+    <p class="eyebrow">Знакомо?</p>
+    <div class="mt-6 space-y-3 text-2xl font-extrabold leading-snug md:text-3xl">
+      <p>Хочешь начать бокс, но кажется, что уже поздно?</p>
+      <p>Сидячая работа, ноль активности, копится напряжение?</p>
+      <p>Пробовал зал, но без техники и азарта быстро бросал?</p>
+    </div>
+  </section>
+
+  <!-- What it is -->
+  <section class="border-t border-line bg-surface">
+    <div class="mx-auto max-w-3xl px-6 py-16 md:py-24">
+      <p class="eyebrow">Бокс в Bronx</p>
+      <h2 class="mt-3 text-3xl font-extrabold uppercase tracking-tight md:text-4xl">
+        Это не бойцовский клуб
+      </h2>
+      <p class="mt-5 text-base leading-relaxed text-muted md:text-lg">
+        Это классическая школа бокса под контролем тренера: ударная техника,
+        защита, работа на лапах и мешке, общая физподготовка. Спарринги — только
+        по готовности, без «проверок на прочность». Новичков ведём с базы — с
+        нуля и без давления.
+      </p>
+    </div>
+  </section>
+
+  <!-- What boxing gives -->
+  <section class="mx-auto max-w-7xl px-6 py-16 md:py-24">
+    <p class="eyebrow">Что даёт бокс</p>
+    <div class="mt-10 grid gap-4 sm:grid-cols-2">
+      {
+        benefits.map((b) => (
+          <div class="rounded border border-line bg-surface p-6">
+            <b.icon class="h-8 w-8 text-gold" aria-hidden="true" />
+            <h3 class="mt-4 text-xl font-semibold uppercase tracking-wide">{b.title}</h3>
+            <p class="mt-2 text-sm leading-relaxed text-muted">{b.text}</p>
+          </div>
+        ))
+      }
+    </div>
+  </section>
+
+  <!-- Levels -->
+  <section class="border-t border-line bg-surface">
+    <div class="mx-auto max-w-7xl px-6 py-16 md:py-24">
+      <p class="eyebrow">Группы</p>
+      <h2 class="mt-3 text-3xl font-extrabold uppercase tracking-tight md:text-5xl">
+        Берём с любого уровня
+      </h2>
+      <div class="mt-10 grid gap-4 md:grid-cols-3">
+        {
+          groups.map((g) => (
+            <div class="rounded border border-line bg-bg p-8">
+              <h3 class="text-2xl font-extrabold uppercase tracking-tight">{g.title}</h3>
+              <p class="mt-3 text-sm leading-relaxed text-muted">{g.text}</p>
+            </div>
+          ))
+        }
+      </div>
+      <p class="mt-6 text-sm text-muted">
+        Спарринги — только по готовности. Никто не выставляет новичка против
+        опытного.
+      </p>
+    </div>
+  </section>
+
+  <!-- Approach -->
+  <section class="mx-auto max-w-7xl px-6 py-16 md:py-24">
+    <div class="grid gap-10 lg:grid-cols-[0.8fr_1.2fr]">
+      <div>
+        <p class="eyebrow">Подход</p>
+        <h2 class="mt-3 text-3xl font-extrabold uppercase tracking-tight md:text-4xl">
+          Спарринг — только когда готов
+        </h2>
+      </div>
+      <ul class="grid gap-4">
+        {
+          approach.map((a) => (
+            <li class="flex gap-4 border-b border-line pb-4 text-muted">
+              <span class="mt-2 h-2 w-2 shrink-0 bg-gold" />
+              <span class="leading-relaxed">{a}</span>
+            </li>
+          ))
+        }
+      </ul>
+    </div>
+  </section>
+
+  <!-- Trainers -->
+  <section class="bg-gold text-bg">
+    <div class="mx-auto max-w-7xl px-6 py-16 md:py-24">
+      <p class="text-sm font-semibold uppercase tracking-[0.14em] text-bg/70">Тренеры</p>
+      <p class="mt-6 text-3xl font-extrabold leading-tight md:text-5xl">
+        Мастера спорта и призёры турниров
+      </p>
+      <p class="mt-6 max-w-prose text-lg leading-relaxed text-bg/80">
+        Среди тренеров Bronx — мастера спорта Казахстана, призёры республиканских
+        и международных турниров. Поставят технику и проведут от первого занятия
+        до уверенного спарринга.
+      </p>
+    </div>
+  </section>
+
+  <!-- How to start -->
+  <section class="mx-auto max-w-7xl px-6 py-16 md:py-24">
+    <p class="eyebrow">Как начать</p>
+    <div class="mt-10 grid gap-4 md:grid-cols-3">
+      {
+        steps.map((s) => (
+          <div class="rounded border border-line bg-surface p-7">
+            <div class="font-mono text-2xl font-bold text-gold">{s.n}</div>
+            <h3 class="mt-4 text-xl font-semibold uppercase tracking-wide">{s.title}</h3>
+            <p class="mt-2 text-sm leading-relaxed text-muted">{s.text}</p>
+          </div>
+        ))
+      }
+    </div>
+  </section>
+
+  <!-- Quote -->
+  <section class="border-t border-line bg-surface">
+    <div class="mx-auto max-w-4xl px-6 py-16 md:py-24">
+      <p class="eyebrow">Главное</p>
+      <blockquote class="mt-6 text-3xl font-extrabold leading-snug md:text-5xl">
+        Бокс начинается не с удара, а с решения прийти.
+        <span class="text-gold">Остальному научим.</span>
+      </blockquote>
+    </div>
+  </section>
+
+  <!-- Location -->
+  <section class="border-t border-line">
+    <div class="mx-auto max-w-7xl px-6 py-16 md:py-24">
+      <p class="eyebrow">Где заниматься</p>
+      <h2 class="mt-3 text-3xl font-extrabold uppercase tracking-tight md:text-4xl">
+        {club.name}
+      </h2>
+      <div class="mt-8 grid gap-8 md:grid-cols-2">
+        <div class="space-y-4">
+          <p class="flex items-start gap-3 text-muted">
+            <MapPin class="mt-1 h-5 w-5 shrink-0 text-gold" aria-hidden="true" />
+            <span>{club.address}</span>
+          </p>
+          <p class="text-muted">{club.hours}</p>
+          <div class="flex flex-wrap gap-3 pt-2">
+            <a href={club.mapUrl} target="_blank" rel="noopener" class="btn-ghost">
+              Открыть на 2ГИС ({TWO_GIS.rating} ★)
+            </a>
+            <a href={INSTAGRAM_URL} target="_blank" rel="noopener" class="btn-ghost">
+              <Instagram class="h-5 w-5" aria-hidden="true" /> Instagram
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section class="border-t border-line bg-surface">
+    <div class="mx-auto max-w-3xl px-6 py-16 md:py-24">
+      <p class="eyebrow">Частые вопросы</p>
+      <div class="mt-8 divide-y divide-line">
+        {
+          faq.map((f) => (
+            <details class="group py-5">
+              <summary class="flex cursor-pointer list-none items-center justify-between gap-4 text-lg font-semibold">
+                {f.q}
+                <span class="text-gold transition-transform group-open:rotate-45">+</span>
+              </summary>
+              <p class="mt-3 leading-relaxed text-muted">{f.a}</p>
+            </details>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <!-- Final CTA -->
+  <section class="border-t border-line">
+    <div class="mx-auto max-w-3xl px-6 py-20 text-center md:py-28">
+      <p class="eyebrow">Пробное занятие</p>
+      <h2 class="mt-3 text-3xl font-extrabold uppercase leading-tight tracking-tight md:text-5xl">
+        3 пробных занятия —<br /><span class="text-gold">2990 ₸</span>
+      </h2>
+      <p class="mx-auto mt-4 max-w-prose text-muted">
+        Напиши в WhatsApp — подберём уровень и удобное время. Приходи с любой
+        подготовкой.
+      </p>
+      <div class="mt-8 flex justify-center">
+        <WhatsAppButton label="Написать в WhatsApp" message={FIGHT_MSG} />
+      </div>
+    </div>
+  </section>
+
+  <WhatsAppButton slot="floating" variant="floating" message={FIGHT_MSG} />
+</AdLandingLayout>
