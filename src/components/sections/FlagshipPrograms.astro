@@ -1,61 +1,93 @@
 ---
 import { flagshipPrograms } from "../../data/programs";
+import { ArrowUpRight } from "lucide-astro";
 import WhatsAppButton from "../ui/WhatsAppButton.astro";
 
-// Map flagship slugs -> promo video files.
-// TODO(content): drop the 4 Bronx promo videos into /public/video/ and confirm
-//   mapping. STRETCH&GO has no promo clip yet -> uses poster only for now.
+// Poster art per flagship. These are the brand cards already shipped for OG
+// previews — reused here so the tiles are never empty.
+// TODO(content): replace with real gym photography (people, bags, stations).
+//   Real footage converts better than text posters.
+const posterBySlug: Record<string, string> = {
+  "bronx-fire": "/og-fire.png",
+  "bronx-fight": "/og-fight.png",
+  "bronx-teens": "/og-teens.png",
+  hyrox: "/og-hyrox.png",
+};
+
+// Only Hyrox has a promo clip in the repo today. The other three promo videos
+// (fire / fight / women) were never added — the old code pointed at
+// /video/fire.mp4 etc. which 404'd, leaving the tiles black.
 const videoBySlug: Record<string, string | undefined> = {
-  "bronx-fire": "/video/fire.mp4",
-  "bronx-fight": "/video/fight.mp4",
-  "bronx-jlo": "/video/women.mp4", // женское промо
-  "stretch-and-go": undefined, // TODO: short clip
+  hyrox: "/video/hyrox/hero.mp4",
 };
 ---
 
 <section id="flagships" class="mx-auto max-w-7xl px-6 py-16 md:py-24 lg:py-32">
   <p class="eyebrow">Самые любимые</p>
-  <h2
-    class="mt-3 text-3xl font-extrabold uppercase tracking-tight md:text-5xl"
-  >
+  <h2 class="mt-3 text-3xl font-extrabold uppercase tracking-tight md:text-5xl">
     С чего начинают
   </h2>
   <p class="mt-4 max-w-prose text-muted">
-    Направления, куда приходит больше всего людей. Начни с любого — первые 3 занятия за 2990 ₸.
+    Направления, куда приходит больше всего людей. Начни с любого — первые 3
+    занятия за 2990 ₸.
   </p>
 
   <div class="mt-10 grid gap-5 sm:grid-cols-2">
     {
-      flagshipPrograms.map((p) => (
-        <article class="group relative flex min-h-[22rem] flex-col justify-end overflow-hidden rounded border border-line">
-          {/* Media */}
-          {videoBySlug[p.slug] ? (
-            <video
-              class="absolute inset-0 h-full w-full object-cover transition duration-500 group-hover:scale-105"
-              autoplay
-              muted
-              loop
-              playsinline
-            >
-              <source src={videoBySlug[p.slug]} type="video/mp4" />
-            </video>
-          ) : (
-            <div class="absolute inset-0 bg-surface">
-              {/* TODO(content): image or short clip for STRETCH&GO */}
-            </div>
-          )}
-          <div class="absolute inset-0 bg-gradient-to-t from-bg via-bg/50 to-transparent" />
+      flagshipPrograms.map((p) => {
+        const Tag = p.href ? "a" : "div";
+        const video = videoBySlug[p.slug];
+        const poster = posterBySlug[p.slug];
+        return (
+          <Tag
+            {...(p.href ? { href: p.href } : {})}
+            class:list={[
+              "group relative flex min-h-[22rem] flex-col justify-end overflow-hidden rounded border border-line transition",
+              p.href && "hover:border-gold",
+            ]}
+          >
+            {video ? (
+              <video
+                class="absolute inset-0 h-full w-full object-cover transition duration-500 group-hover:scale-105"
+                poster={poster}
+                autoplay
+                muted
+                loop
+                playsinline
+              >
+                <source src={video} type="video/mp4" />
+              </video>
+            ) : poster ? (
+              <img
+                src={poster}
+                alt=""
+                loading="lazy"
+                class="absolute inset-0 h-full w-full object-cover transition duration-500 group-hover:scale-105"
+              />
+            ) : (
+              <div class="absolute inset-0 bg-surface" />
+            )}
+            <div class="absolute inset-0 bg-gradient-to-t from-bg via-bg/70 to-bg/20" />
 
-          <div class="relative p-6">
-            <h3 class="text-2xl font-extrabold uppercase tracking-tight">
-              {p.name}
-            </h3>
-            <p class="mt-2 max-w-sm text-sm leading-relaxed text-muted">
-              {p.blurb}
-            </p>
-          </div>
-        </article>
-      ))
+            <div class="relative p-6">
+              <div class="flex items-start justify-between gap-3">
+                <h3 class="text-2xl font-extrabold uppercase tracking-tight">
+                  {p.name}
+                </h3>
+                {p.href && (
+                  <ArrowUpRight
+                    class="mt-1 h-5 w-5 shrink-0 text-muted transition group-hover:text-gold"
+                    aria-hidden="true"
+                  />
+                )}
+              </div>
+              <p class="mt-2 max-w-sm text-sm leading-relaxed text-muted">
+                {p.blurb}
+              </p>
+            </div>
+          </Tag>
+        );
+      })
     }
   </div>
 

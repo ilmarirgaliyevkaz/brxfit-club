@@ -47,6 +47,7 @@ export const programs: Program[] = [
     blurb: "Боксёрский кардио-интенсив под музыку — жжёт и заряжает.",
     attendance: 244,
     flagship: true,
+    href: "/fire",
   },
   {
     slug: "bronx-fight",
@@ -55,6 +56,7 @@ export const programs: Program[] = [
     blurb: "Техника бокса и работа на снарядах для реального навыка.",
     attendance: 224,
     flagship: true,
+    href: "/fight",
   },
   {
     slug: "bronx-teens",
@@ -62,6 +64,8 @@ export const programs: Program[] = [
     category: "combat",
     blurb: "Бокс для подростков: дисциплина, форма, уверенность.",
     attendance: 117,
+    flagship: true,
+    href: "/teens",
   },
   {
     slug: "bronx-punch",
@@ -99,6 +103,7 @@ export const programs: Program[] = [
     category: "functional",
     blurb: "Подготовка к гонке Hyrox: бег + силовые станции.",
     attendance: 25,
+    flagship: true,
     href: "/hyrox",
   },
   {
@@ -110,14 +115,6 @@ export const programs: Program[] = [
   },
 
   // ── Силовые ───────────────────────────────────────────────────
-  {
-    slug: "bronx-jlo",
-    name: "BRONX J LO",
-    category: "strength",
-    blurb: "Силовая прокачка низа тела под драйвовый плейлист.",
-    attendance: 412,
-    flagship: true,
-  },
   {
     slug: "bronx-full-body",
     name: "BRONX FULL BODY",
@@ -140,7 +137,6 @@ export const programs: Program[] = [
     category: "flow",
     blurb: "Глубокая растяжка и мобильность — тело дышит свободнее.",
     attendance: 340,
-    flagship: true,
   },
   {
     slug: "pilates",
@@ -186,6 +182,13 @@ export function programsByCategory() {
     .filter((g) => g.items.length > 0);
 }
 
+/**
+ * Flagship cards in a deliberate order — these mirror the four ad landing
+ * pages, so the running order is a marketing decision, not an attendance one.
+ * (Hyrox leads despite low attendance: it's the campaign we're pushing.)
+ */
+const flagshipOrder = ["hyrox", "bronx-fire", "bronx-fight", "bronx-teens"];
+
 export const flagshipPrograms = programs
   .filter((p) => p.flagship)
-  .sort((a, b) => b.attendance - a.attendance);
+  .sort((a, b) => flagshipOrder.indexOf(a.slug) - flagshipOrder.indexOf(b.slug));
