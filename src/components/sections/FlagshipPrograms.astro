@@ -14,11 +14,13 @@ const posterBySlug: Record<string, string> = {
   hyrox: "/og-hyrox.png",
 };
 
-// Only Hyrox has a promo clip in the repo today. The other three promo videos
-// (fire / fight / women) were never added — the old code pointed at
-// /video/fire.mp4 etc. which 404'd, leaving the tiles black.
+// Promo clip per flagship (autoplay muted loop). Missing slugs fall back to the
+// OG poster in posterBySlug, so a tile is never black.
 const videoBySlug: Record<string, string | undefined> = {
   hyrox: "/video/hyrox/hero.mp4",
+  "bronx-fire": "/video/fire/hero.mp4",
+  "bronx-fight": "/video/fight/hero.mp4",
+  "bronx-teens": "/video/teens/hero.mp4",
 };
 ---
 

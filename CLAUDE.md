@@ -71,7 +71,7 @@ src/
 - `hyrox/hero.mp4`, `hyrox/overview.mp4` — промо Hyrox.
 - `hyrox/reviews/1.mp4` (+ `.jpg`) — групповой отзыв; играет и на `/hyrox`, и в блоке отзывов главной.
 - `reviews/1.mp4` (Ербол), `reviews/2.mp4` (+ постеры) — отзывы главной, 720×1280, со звуком, целиком.
-- Промо fire / fight / teens в репозитории **пока нет** — витрина показывает постеры.
+- `fight/hero.mp4`, `fire/hero.mp4`, `teens/hero.mp4` (+ `hero.jpg`) — промо витрины, 1280×720, обрезаны до 15 с, без звука.
 - Конвенция: промо направления — `video/<slug>/hero.mp4`; отзыв — `video/reviews/<n>.mp4`.
   К каждому ролику обязателен `.jpg`-постер: у `<video>` стоит `preload="none"`.
 - Исходники (~1 ГБ) лежат вне репозитория, в `~/Downloads/MP3 for landing/`. В git не класть.
