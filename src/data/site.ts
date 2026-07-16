@@ -51,8 +51,8 @@ export interface VideoTestimonial {
   poster?: string;
 }
 
-// TODO(content): drop the client-review videos into /public/video/reviews/
-//   and list them here (name + filename). Add as many as you like.
 export const videoTestimonials: VideoTestimonial[] = [
-  // { name: "Имя клиента", src: "/video/reviews/1.mp4", poster: "/video/reviews/1.jpg" },
+  { name: "Ербол", src: "/video/reviews/1.mp4", poster: "/video/reviews/1.jpg" },
+  { name: "Отзыв клиента", src: "/video/reviews/2.mp4", poster: "/video/reviews/2.jpg" },
+  { name: "Группа Hyrox", src: "/video/hyrox/reviews/1.mp4", poster: "/video/hyrox/reviews/1.jpg" },
 ];
