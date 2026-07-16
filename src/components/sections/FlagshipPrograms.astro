@@ -39,6 +39,9 @@ const videoBySlug: Record<string, string | undefined> = {
       flagshipPrograms.map((p) => {
         const Tag = p.href ? "a" : "div";
         const video = videoBySlug[p.slug];
+        // Video tiles use their own frame grab (hero.jpg) as the poster;
+        // posterBySlug (OG art) is the fallback only for tiles without a clip.
+        const videoPoster = video?.replace(/\.mp4$/, ".jpg");
         const poster = posterBySlug[p.slug];
         return (
           <Tag
@@ -51,7 +54,7 @@ const videoBySlug: Record<string, string | undefined> = {
             {video ? (
               <video
                 class="absolute inset-0 h-full w-full object-cover transition duration-500 group-hover:scale-105"
-                poster={poster}
+                poster={videoPoster}
                 autoplay
                 muted
                 loop
