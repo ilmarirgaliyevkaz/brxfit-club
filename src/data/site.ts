@@ -8,7 +8,7 @@ export const GA4_ID = "G-VVJ3Q40M39";
 
 export const WHATSAPP_NUMBER = "77071309980";
 export const WHATSAPP_MESSAGE =
-  "Заявка с сайта brxfit.club. Здравствуйте! Хочу 3 пробных занятия за 2990 ₸ в Bronx.";
+  "Заявка с сайта brxfit.club. Здравствуйте! Хочу пробное занятие за 2990 ₸ в Bronx.";
 
 export function whatsappHref(message: string = WHATSAPP_MESSAGE): string {
   return `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(message)}`;
