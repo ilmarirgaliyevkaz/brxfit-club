@@ -5,7 +5,7 @@ import { Flame, Dumbbell, Wind, Activity, MapPin, Instagram } from "lucide-astro
 import { locations, TWO_GIS, INSTAGRAM_URL } from "../data/site";
 
 const FIRE_MSG =
-  "Заявка с сайта brxfit.club (Fire). Здравствуйте! Хочу пробное занятие за 2990 ₸ (Fire, фитнес-бокс).";
+  "Заявка с сайта brxfit.club (Fire). Здравствуйте! Хочу попробовать всего за 2990 ₸ (Fire, фитнес-бокс).";
 
 const club = locations[0];
 
@@ -44,7 +44,7 @@ const faq = [
   { q: "Для кого это?", a: "Фитнес-бокс для всех — мужчины и женщины, любой уровень." },
   { q: "Будут спарринги?", a: "Нет. Фитнес-бокс — это тренировка без спаррингов." },
   { q: "Сколько калорий сжигается?", a: "До 1000 ккал за тренировку — зависит от интенсивности и веса." },
-  { q: "Сколько стоит?", a: "Пробное занятие — 2990 ₸. Дальше подберём формат при записи." },
+  { q: "Сколько стоит?", a: "Попробовать — всего 2990 ₸. Дальше подберём формат при записи." },
 ];
 
 const jsonLd = {
@@ -63,8 +63,8 @@ const jsonLd = {
 ---
 
 <AdLandingLayout
-  title="Фитнес-бокс в Астане — Bronx Fire | Пробное занятие за 2990 ₸"
-  description="Фитнес-бокс в Bronx: жиросжигающие тренировки на боксёрской технике. Кардио, сила, координация, до 1000 ккал за тренировку, без спаррингов. Любой уровень. Пробное занятие — 2990 ₸."
+  title="Фитнес-бокс в Астане — Bronx Fire | Попробовать всего за 2990 ₸"
+  description="Фитнес-бокс в Bronx: жиросжигающие тренировки на боксёрской технике. Кардио, сила, координация, до 1000 ккал за тренировку, без спаррингов. Любой уровень. Попробовать всего за 2990 ₸."
   ogImage="/og-fire.png"
   jsonLd={jsonLd}
 >
@@ -81,7 +81,7 @@ const jsonLd = {
         мужчин, и женщин.
       </p>
       <div class="mt-8">
-        <WhatsAppButton label="Пробное за 2990 ₸" message={FIRE_MSG} />
+        <WhatsAppButton label="Попробовать за 2990 ₸" message={FIRE_MSG} />
       </div>
     </div>
   </section>
@@ -283,7 +283,7 @@ const jsonLd = {
     <div class="mx-auto max-w-3xl px-6 py-20 text-center md:py-28">
       <p class="eyebrow">Пробная тренировка</p>
       <h2 class="mt-3 text-3xl font-extrabold uppercase leading-tight tracking-tight md:text-5xl">
-        Пробное занятие —<br /><span class="text-gold">2990 ₸</span>
+        Попробуй всего за<br /><span class="text-gold">2990 ₸</span>
       </h2>
       <p class="mx-auto mt-4 max-w-prose text-muted">
         Напиши в WhatsApp — подберём удобное время. Приходи с любой подготовкой.
